@@ -2330,6 +2330,10 @@ select P.patient_id,record_id, name, dob, gender, description, admitted
 from patient as P,record as R
 where P.patient_id = R.patient_id;
 
+select *
+from Doctor 
+where department like 'Cardiology';
+
 delete from patient
 where patient_id like '9YN3GT0FG72';
 
