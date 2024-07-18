@@ -98,6 +98,33 @@ class newHouse implements HouseBlueprint, Building {
 
 public class OOP {
     public static void main(String[] args) {
-        
+
+        System.out.println("Platypus and Mammal\n");
+
+        Platypus Perry = new Platypus();
+
+        Perry.Fact();
+        Perry.toTheTop();
+
+        System.out.println("Random Math\n");
+
+        RandomMath demo = new RandomMath();
+
+        demo.add(17, 29);
+        System.out.println(demo.getResult());
+
+        demo.add(17, 29, 33);
+        System.out.println(demo.getResult());
+
+        System.out.println("New House\n");
+
+        newHouse myHouse = new newHouse();
+        System.out.println("Default initialisation of house gives");
+        System.out.println("Rooms: " + myHouse.getRooms() + " " + "Stairs: " + myHouse.getStairs());
+
+        newHouse yourHouse = new newHouse(5, 13);
+        System.out.println("\nParameterized Constructor initialisation of house with (5, 13) gives");
+        System.out.println("Rooms: " + yourHouse.getRooms() + " " + "Stairs: " + yourHouse.getStairs());
     }
 }
+
