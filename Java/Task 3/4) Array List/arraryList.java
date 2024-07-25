@@ -70,6 +70,6 @@ public class arraryList {
             }
             System.out.println("Press e to exit");
         } while(sc.next().charAt(0) != 'e');
-
+        sc.close();
     }
 }

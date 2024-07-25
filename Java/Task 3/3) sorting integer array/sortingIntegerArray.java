@@ -10,6 +10,7 @@ public class sortingIntegerArray {
         System.out.println("Enter the integers ");
         int i,j;
         for (i=0; i < n; i++) numbers[i] = sc.nextInt();
+        sc.close();
 
         for (i = 1; i < n; i++) {
             for (j = i ; j > 0 && numbers[j] < numbers[j-1]; j--) {
@@ -21,5 +22,6 @@ public class sortingIntegerArray {
 
         System.out.println("The sorted array is");
         for (i = 0; i < n; i++) System.out.print(numbers[i] + " ");
+
     }
 }

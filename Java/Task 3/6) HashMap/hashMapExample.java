@@ -130,5 +130,6 @@ public class hashMapExample {
             }
             System.out.println("\nPress e to exit");
         } while(sc.next().charAt(0) != 'e');
+        sc.close();
     }
 }
