@@ -22,6 +22,7 @@ public class fileHandling {
 
         Scanner sc = new Scanner(System.in);
         int id; String name; Double salary;
+        Boolean FT = true;
 
         do {
             System.out.println("1) Enter a new Employee detail");
@@ -40,9 +41,16 @@ public class fileHandling {
                     name = sc.nextLine();
                     System.out.print("Employee Salary: ");
                     salary = sc.nextDouble();
-
-                    BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt", true));
-                    writer.write("\n" + id + "," + name + "," + salary);
+                    
+                    BufferedWriter writer;
+                    if (FT) {
+                        writer = new BufferedWriter(new FileWriter("out.txt"));   
+                        FT = false; 
+                    } else {
+                        writer = new BufferedWriter(new FileWriter("out.txt", true));
+                    }
+                    
+                    writer.write(id + "," + name + "," + salary + "\n");
                     writer.close();
                 } catch(IOException e) {
                     System.out.println("File Error " + e);
@@ -56,10 +64,10 @@ public class fileHandling {
                     BufferedReader reader = new BufferedReader(new FileReader("out.txt"));
                     String current;
                     while((current = reader.readLine()) != null) {
-                        String[] pars = current.split(",");
-                        System.out.println(pars);
-                        reader.close();
+                        // String[] pars = current.split(",");
+                        System.out.println(current);
                     }
+                    reader.close();
                 } catch(IOException e) {
                     System.out.println("File error " + e);
                 } catch (Exception e) {
