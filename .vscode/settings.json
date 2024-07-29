@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "PG Local",
+            "database": "FetchApp",
+            "username": "postgres",
+            "password": "Hrishasur@07",
+            "connectionTimeout": 30
+        }
+    ]
+}
