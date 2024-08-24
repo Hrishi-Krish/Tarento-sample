@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #fff;
+}
+
+.square {
+  font-size: 3rem;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.board {
+  width: 70%;
+  height: 70%;
+  margin: auto;
+  margin-top: 7%;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
+}
