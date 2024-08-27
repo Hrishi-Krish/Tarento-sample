@@ -1,20 +1,15 @@
-import { useState } from "react";
 import Square from "./Square";
 import calculateWinner from "./calculateWinner";
 import GameOver from "./GameOver";
 
-export default function Board() {
-
-    const [x, setX] = useState(false)
-    const [squares, setSquares] = useState(Array(9).fill(null))
+export default function Board({x, squares, onPlay}) {
 
     function handleClick(i) {
         if (squares[i] || calculateWinner(squares)) return
         const nextSquares = squares.slice();
         if (x) nextSquares[i] = 'X'
         else nextSquares[i] = 'O'
-        setSquares(nextSquares)
-        setX(!x)
+        onPlay(nextSquares)
     }
 
     const winner = calculateWinner(squares)

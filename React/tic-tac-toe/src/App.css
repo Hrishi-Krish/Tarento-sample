@@ -21,6 +21,7 @@ h1 {
   height: 70%;
   margin: auto;
   margin-top: 7%;
+
 }
 
 .board-row {
@@ -28,4 +29,17 @@ h1 {
   justify-content: center;
   gap: 4px;
   margin-top: 4px;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  margin-right: 90px;
+  margin-top: 150px;
+  list-style-type: none;
 }
