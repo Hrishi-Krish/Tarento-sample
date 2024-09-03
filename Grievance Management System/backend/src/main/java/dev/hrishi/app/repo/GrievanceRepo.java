@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface GrievanceRepo extends JpaRepository<Grievance, Long> {
     List<Grievance> findByUser(Users users);
+    List<Grievance> findByStatus(String status);
+    List<Grievance> findByCategory(String category);
 }

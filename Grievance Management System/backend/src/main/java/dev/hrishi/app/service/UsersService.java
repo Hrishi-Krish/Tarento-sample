@@ -34,6 +34,14 @@ public class UsersService {
         return user.get();
     }
 
+    public List<Users> getUsersByName(String name) {
+        return usersRepo.findByUsername(name);
+    }
+
+    public List<Users> getUsersByRole(String role) {
+        return usersRepo.findByRole(role);
+    }
+
     public Users getUserByEmail(String email) {
         Users user = usersRepo.findByEmail(email);
         if (user == null) {
@@ -44,7 +52,7 @@ public class UsersService {
 
     public ResponseEntity<String> register(UsersDto user) throws Exception {
         try {
-            Users existingUser = getUserByEmail(user.getEmail());
+            getUserByEmail(user.getEmail());
             return new ResponseEntity<>("User with given email already exists", HttpStatus.CONFLICT);
         } catch (UserWithGivenEmailNotFound e) {
             user.setPassword(encoder.encode(user.getPassword()));
@@ -70,6 +78,10 @@ public class UsersService {
         }
     }
 
+    public void updateUser(Users user) {
+        usersRepo.save(user);
+    }
+
     public ResponseEntity<String> remove(UsersDto user) throws Exception {
         try {
             Users existingUser = getUserByEmail(user.getEmail());
@@ -81,4 +93,5 @@ public class UsersService {
             throw new Exception("Something went wrong\n" + e);
         }
     }
+
 }

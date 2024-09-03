@@ -60,7 +60,8 @@ public class AssignmentService {
             }
             Assignment assignment = new Assignment(grievance.get(), supervisor.get(), assignee.get());
             assignmentRepo.save(assignment);
-            grievance.get().setStatus("");
+            grievance.get().setStatus("Assigned for review");
+            grievanceRepo.save(grievance.get());
             return new ResponseEntity<>("Grievance assigned successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println("Exception\n" + e);
@@ -68,14 +69,24 @@ public class AssignmentService {
         }
     }
 
-    public ResponseEntity<String> updateAssignment(Assignment assignment) {
+    public ResponseEntity<String> updateAssignment(AssignmentDto assignment) {
         try {
-            Assignment existingAssignment = getAssignmentById(assignment.getId());
-            existingAssignment.setAssignedBy(assignment.getAssignedBy());
-            existingAssignment.setAssignedTo(assignment.getAssignedTo());
+            Assignment existingAssignment = getAssignmentById(assignment.getAssignmentId());
+            if (existingAssignment == null) {
+                System.out.println(assignment.getAssignmentId());
+                throw new RuntimeException("Assignment not found");
+            }
+            Optional<Users> supervisor = usersRepo.findById(assignment.getSupervisorId());
+            Optional<Users> assignee = usersRepo.findById(assignment.getAssigneeId());
+            if (supervisor.isEmpty() || assignee.isEmpty() ) {
+                throw new RuntimeException("Check supervisor id and assignee id");
+            }
+            existingAssignment.setAssignedBy(supervisor.get());
+            existingAssignment.setAssignedTo(assignee.get());
             assignmentRepo.save(existingAssignment);
             return new ResponseEntity<>("Assignment updated successfully", HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println("Exception\n" + e);
             return new ResponseEntity<>("Update failed", HttpStatus.NOT_MODIFIED);
         }
     }

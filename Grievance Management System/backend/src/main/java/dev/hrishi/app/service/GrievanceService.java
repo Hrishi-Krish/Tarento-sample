@@ -41,7 +41,14 @@ public class GrievanceService {
         } catch (Exception e) {
             return null;
         }
+    }
 
+    public List<Grievance> getGrievanceByStatus(String status) {
+        return grievanceRepo.findByStatus(status);
+    }
+
+    public List<Grievance> getGrievanceByCategory(String category) {
+        return grievanceRepo.findByCategory(category);
     }
 
     public ResponseEntity<String> newGrievance(GrievanceDto grievanceDto) {

@@ -26,9 +26,8 @@ public class AdminInitialiser {
             return;
         } catch (UserWithGivenEmailNotFound e) {
             UsersDto users = new UsersDto("admin", "admin@123", "admin@dev.com", "ADMIN");
-            usersService.register(users);
+            usersService.register(users);                                   
+            isCreated = true;
         }
-
     }
-
 }

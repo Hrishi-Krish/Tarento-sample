@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("/api/")
@@ -29,6 +31,16 @@ public class UsersController {
     @GetMapping("users/email/{email}")
     public Users getUserByEmail(@PathVariable String email) {
         return usersService.getUserByEmail(email);
+    }
+
+    @GetMapping("users/name/{name}")
+    public List<Users> getUsersByName(@PathVariable String name) {
+        return usersService.getUsersByName(name);
+    }
+
+    @GetMapping("users/role/{role}")
+    public List<Users> getUsersByRole(@PathVariable String role) {
+        return usersService.getUsersByRole(role);
     }
 
     @PostMapping("users/register")

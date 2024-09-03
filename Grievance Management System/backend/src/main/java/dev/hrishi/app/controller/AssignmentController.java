@@ -41,7 +41,7 @@ public class AssignmentController {
     }
 
     @PatchMapping("assignments/update")
-    private ResponseEntity<String> updateAssignment(@RequestBody Assignment assignment) {
+    private ResponseEntity<String> updateAssignment(@RequestBody AssignmentDto assignment) {
         return assignmentService.updateAssignment(assignment);
     }
 

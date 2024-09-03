@@ -26,6 +26,17 @@ public class GrievanceController {
         return grievanceService.getGrievanceById(id);
     }
 
+
+    @GetMapping("grievances/status/{status}")
+    public List<Grievance> getGrievanceByStatus(@PathVariable String status) {
+        return grievanceService.getGrievanceByStatus(status);
+    }
+
+    @GetMapping("grievances/category/{category}")
+    public List<Grievance> getGrievanceByCategory(@PathVariable String category) {
+        return grievanceService.getGrievanceByCategory(category);
+    }
+
     @GetMapping("grievances/creator")
     public List<Grievance> getGrievanceByCreator(@RequestBody GrievanceDto grievanceDto) {
         return grievanceService.getGrievanceByCreator(grievanceDto.getEmail());
