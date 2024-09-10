@@ -1,10 +1,11 @@
-package dev.hrishi.sec.component;
+package com.tarento.sec.component;
 
 import org.springframework.stereotype.Component;
 
-import dev.hrishi.sec.dto.UserDto;
-import dev.hrishi.sec.exception.UserNotFound;
-import dev.hrishi.sec.service.UserService;
+import com.tarento.sec.dto.UserDto;
+import com.tarento.sec.exception.UserNotFound;
+import com.tarento.sec.service.UserService;
+
 import jakarta.annotation.PostConstruct;
 
 @Component

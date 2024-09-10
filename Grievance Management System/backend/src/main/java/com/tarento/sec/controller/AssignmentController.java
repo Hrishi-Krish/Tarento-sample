@@ -1,4 +1,4 @@
-package dev.hrishi.sec.controller;
+package com.tarento.sec.controller;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.hrishi.sec.dto.AssignmentDto;
-import dev.hrishi.sec.model.Assignment;
-import dev.hrishi.sec.service.AssignmentService;
+import com.tarento.sec.dto.AssignmentDto;
+import com.tarento.sec.model.Assignment;
+import com.tarento.sec.service.AssignmentService;
 
 @RestController
 @RequestMapping("/api/assignments")

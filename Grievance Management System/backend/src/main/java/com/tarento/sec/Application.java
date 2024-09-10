@@ -1,4 +1,4 @@
-package dev.hrishi.sec;
+package com.tarento.sec;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

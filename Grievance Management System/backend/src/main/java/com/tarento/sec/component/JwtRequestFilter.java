@@ -1,4 +1,4 @@
-package dev.hrishi.sec.component;
+package com.tarento.sec.component;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,7 +7,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import dev.hrishi.sec.service.CustomUserDetailsService;
+import com.tarento.sec.service.CustomUserDetailsService;
+
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

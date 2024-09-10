@@ -8,11 +8,11 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>dev.hrishi</groupId>
-	<artifactId>sec</artifactId>
+	<groupId>com.tarento</groupId>
+	<artifactId>Grievance-Management-System</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sec</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Grievance-Management-System</name>
+	<description>Grievance Management System</description>
 	<url/>
 	<licenses>
 		<license/>

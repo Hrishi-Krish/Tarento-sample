@@ -1,4 +1,4 @@
-package dev.hrishi.sec.exception;
+package com.tarento.sec.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -1,4 +1,4 @@
-package dev.hrishi.sec.controller;
+package com.tarento.sec.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.hrishi.sec.component.JwtUtils;
-import dev.hrishi.sec.dto.AuthenticationRequest;
-import dev.hrishi.sec.dto.AuthenticationResponse;
-import dev.hrishi.sec.service.CustomUserDetailsService;
+import com.tarento.sec.component.JwtUtils;
+import com.tarento.sec.dto.AuthenticationRequest;
+import com.tarento.sec.dto.AuthenticationResponse;
+import com.tarento.sec.service.CustomUserDetailsService;
 
 @RestController
 @RequestMapping("/api/auth")

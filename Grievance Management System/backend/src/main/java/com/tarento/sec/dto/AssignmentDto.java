@@ -1,4 +1,4 @@
-package dev.hrishi.sec.dto;
+package com.tarento.sec.dto;
 
 import lombok.Data;
 

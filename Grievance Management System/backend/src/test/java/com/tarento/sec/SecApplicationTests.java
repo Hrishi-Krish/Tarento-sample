@@ -1,4 +1,4 @@
-package dev.hrishi.sec;
+package com.tarento.sec;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

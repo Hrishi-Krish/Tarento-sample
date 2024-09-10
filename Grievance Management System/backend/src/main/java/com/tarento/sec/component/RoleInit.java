@@ -1,9 +1,10 @@
-package dev.hrishi.sec.component;
+package com.tarento.sec.component;
 
 import org.springframework.stereotype.Component;
 
-import dev.hrishi.sec.model.Role;
-import dev.hrishi.sec.repo.RoleRepo;
+import com.tarento.sec.model.Role;
+import com.tarento.sec.repo.RoleRepo;
+
 import jakarta.annotation.PostConstruct;
 
 @Component

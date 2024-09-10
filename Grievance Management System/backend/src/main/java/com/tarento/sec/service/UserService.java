@@ -1,4 +1,4 @@
-package dev.hrishi.sec.service;
+package com.tarento.sec.service;
 
 import java.util.List;
 
@@ -7,15 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import dev.hrishi.sec.dto.UserDto;
-import dev.hrishi.sec.exception.RoleNotAllowedException;
-import dev.hrishi.sec.exception.RoleNotFound;
-import dev.hrishi.sec.exception.UserAlreadyExistsException;
-import dev.hrishi.sec.exception.UserNotFound;
-import dev.hrishi.sec.model.Role;
-import dev.hrishi.sec.model.User;
-import dev.hrishi.sec.repo.RoleRepo;
-import dev.hrishi.sec.repo.UserRepo;
+import com.tarento.sec.dto.UserDto;
+import com.tarento.sec.exception.RoleNotAllowedException;
+import com.tarento.sec.exception.RoleNotFound;
+import com.tarento.sec.exception.UserAlreadyExistsException;
+import com.tarento.sec.exception.UserNotFound;
+import com.tarento.sec.model.Role;
+import com.tarento.sec.model.User;
+import com.tarento.sec.repo.RoleRepo;
+import com.tarento.sec.repo.UserRepo;
 
 @Service
 public class UserService {

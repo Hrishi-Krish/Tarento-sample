@@ -1,4 +1,4 @@
-package dev.hrishi.sec.controller;
+package com.tarento.sec.controller;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.hrishi.sec.dto.GrievanceDto;
-import dev.hrishi.sec.model.Grievance;
-import dev.hrishi.sec.service.GrievanceService;
+import com.tarento.sec.dto.GrievanceDto;
+import com.tarento.sec.model.Grievance;
+import com.tarento.sec.service.GrievanceService;
 
 @RestController
 @RequestMapping("/api/grievances")

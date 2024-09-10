@@ -1,4 +1,4 @@
-package dev.hrishi.sec.exception;
+package com.tarento.sec.exception;
 
 public class UserAlreadyExistsException extends RuntimeException {
 

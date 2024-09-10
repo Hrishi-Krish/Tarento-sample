@@ -1,4 +1,4 @@
-package dev.hrishi.sec.model;
+package com.tarento.sec.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

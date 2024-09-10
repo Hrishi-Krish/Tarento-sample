@@ -1,8 +1,9 @@
-package dev.hrishi.sec.model;
+package com.tarento.sec.model;
 
 import java.time.LocalDateTime;
 
-import dev.hrishi.sec.dto.GrievanceDto;
+import com.tarento.sec.dto.GrievanceDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

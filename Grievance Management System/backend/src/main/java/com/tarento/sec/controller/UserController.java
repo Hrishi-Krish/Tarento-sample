@@ -1,4 +1,4 @@
-package dev.hrishi.sec.controller;
+package com.tarento.sec.controller;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.hrishi.sec.dto.UserDto;
-import dev.hrishi.sec.model.User;
-import dev.hrishi.sec.service.UserService;
+import com.tarento.sec.dto.UserDto;
+import com.tarento.sec.model.User;
+import com.tarento.sec.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")

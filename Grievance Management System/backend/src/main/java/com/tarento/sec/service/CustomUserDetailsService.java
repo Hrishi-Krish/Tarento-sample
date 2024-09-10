@@ -1,13 +1,13 @@
-package dev.hrishi.sec.service;
+package com.tarento.sec.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import dev.hrishi.sec.model.User;
-import dev.hrishi.sec.model.UserPrincipal;
-import dev.hrishi.sec.repo.UserRepo;
+import com.tarento.sec.model.User;
+import com.tarento.sec.model.UserPrincipal;
+import com.tarento.sec.repo.UserRepo;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService{

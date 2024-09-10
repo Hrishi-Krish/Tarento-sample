@@ -1,16 +1,16 @@
-package dev.hrishi.sec.service;
+package com.tarento.sec.service;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import dev.hrishi.sec.dto.GrievanceDto;
-import dev.hrishi.sec.exception.GrievanceNotFoundException;
-import dev.hrishi.sec.exception.UserNotFound;
-import dev.hrishi.sec.model.Grievance;
-import dev.hrishi.sec.model.User;
-import dev.hrishi.sec.repo.GrievanceRepo;
+import com.tarento.sec.dto.GrievanceDto;
+import com.tarento.sec.exception.GrievanceNotFoundException;
+import com.tarento.sec.exception.UserNotFound;
+import com.tarento.sec.model.Grievance;
+import com.tarento.sec.model.User;
+import com.tarento.sec.repo.GrievanceRepo;
 
 @Service
 public class GrievanceService {

@@ -1,4 +1,4 @@
-package dev.hrishi.sec.config;
+package com.tarento.sec.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import dev.hrishi.sec.component.JwtRequestFilter;
-import dev.hrishi.sec.service.CustomUserDetailsService;
+import com.tarento.sec.component.JwtRequestFilter;
+import com.tarento.sec.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity

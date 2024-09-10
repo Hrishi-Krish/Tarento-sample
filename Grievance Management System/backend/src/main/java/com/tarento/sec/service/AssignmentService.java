@@ -1,4 +1,4 @@
-package dev.hrishi.sec.service;
+package com.tarento.sec.service;
 
 import java.util.List;
 
@@ -6,13 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import dev.hrishi.sec.dto.AssignmentDto;
-import dev.hrishi.sec.model.Assignment;
-import dev.hrishi.sec.model.Grievance;
-import dev.hrishi.sec.model.User;
-import dev.hrishi.sec.repo.AssignmentRepo;
-import dev.hrishi.sec.repo.GrievanceRepo;
-import dev.hrishi.sec.repo.UserRepo;
+import com.tarento.sec.dto.AssignmentDto;
+import com.tarento.sec.model.Assignment;
+import com.tarento.sec.model.Grievance;
+import com.tarento.sec.model.User;
+import com.tarento.sec.repo.AssignmentRepo;
+import com.tarento.sec.repo.GrievanceRepo;
+import com.tarento.sec.repo.UserRepo;
 
 @Service
 public class AssignmentService {
