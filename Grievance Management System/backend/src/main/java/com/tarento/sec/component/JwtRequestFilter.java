@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.tarento.sec.service.CustomUserDetailsService;
+import com.tarento.sec.service.TokenBlacklistService;
 
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
@@ -20,10 +21,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtUtils jwtUtils;
+    private final TokenBlacklistService tokenBlacklistService;
 
-    public JwtRequestFilter(CustomUserDetailsService customUserDetailsService, JwtUtils jwtUtils) {
+    public JwtRequestFilter(CustomUserDetailsService customUserDetailsService, JwtUtils jwtUtils, TokenBlacklistService tokenBlacklistService) {
         this.customUserDetailsService = customUserDetailsService;
         this.jwtUtils = jwtUtils;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @Override
@@ -38,6 +41,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             username = jwtUtils.extractUsername(jwt);
+
+            // Check if the token is blacklisted
+            if (tokenBlacklistService.isTokenBlacklisted(jwt)) {
+                SecurityContextHolder.clearContext();
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token has been logged out");
+                return;
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
