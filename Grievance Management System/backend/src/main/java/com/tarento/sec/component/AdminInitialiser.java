@@ -1,5 +1,6 @@
 package com.tarento.sec.component;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.tarento.sec.dto.UserDto;
@@ -15,7 +16,7 @@ public class AdminInitialiser {
 
     private final UserService userService;
 
-    public AdminInitialiser(UserService userService) {
+    public AdminInitialiser(@Lazy UserService userService) {
         this.userService = userService;
     }
 

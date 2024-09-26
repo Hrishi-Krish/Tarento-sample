@@ -12,9 +12,9 @@ import com.tarento.sec.exception.RoleNotAllowedException;
 import com.tarento.sec.exception.RoleNotFound;
 import com.tarento.sec.exception.UserAlreadyExistsException;
 import com.tarento.sec.exception.UserNotFound;
-import com.tarento.sec.model.Grievance;
 import com.tarento.sec.model.Role;
 import com.tarento.sec.model.User;
+import com.tarento.sec.repo.GrievanceRepo;
 import com.tarento.sec.repo.RoleRepo;
 import com.tarento.sec.repo.UserRepo;
 
@@ -24,13 +24,13 @@ public class UserService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepo roleRepo;
-    private final GrievanceService grievanceService;
+    private final GrievanceRepo grievanceRepo;
     
-    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder, RoleRepo roleRepo, GrievanceService grievanceService) {
+    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder, RoleRepo roleRepo, GrievanceRepo grievanceRepo) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.roleRepo = roleRepo;
-        this.grievanceService = grievanceService;
+        this.grievanceRepo = grievanceRepo;
     }
 
     public List<User> getUserByUsername(String username) {
@@ -107,10 +107,10 @@ public class UserService {
     public ResponseEntity<String> deleteUser(Long id) {
         try {
             User existingUser = getUserById(id);
-            List<Grievance> grievances =  grievanceService.getGrievancesByUser(id);
-            for (Grievance grievance : grievances) {
+            grievanceRepo.findByUser(existingUser).forEach(grievance -> {
                 grievance.setUser(null);
-            }
+                grievanceRepo.save(grievance);
+            });
             userRepo.delete(existingUser);
             return ResponseEntity.ok("User deleted successfully");
         } catch (UserNotFound e) {
