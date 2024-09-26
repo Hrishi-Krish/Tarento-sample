@@ -32,10 +32,10 @@ public class Assignment {
     @JoinColumn(name = "grievance_id", nullable = false)
     private Grievance grievance;
     @ManyToOne
-    @JoinColumn(name = "assigned_by_id", nullable = false)
+    @JoinColumn(name = "assigned_by_id", nullable = true)
     private User supervisor;
     @ManyToOne
-    @JoinColumn(name = "assigned_to_id", nullable = false)
+    @JoinColumn(name = "assigned_to_id", nullable = true)
     private User assignee;
     private LocalDateTime createdAt;
     private LocalDateTime assignedAt;

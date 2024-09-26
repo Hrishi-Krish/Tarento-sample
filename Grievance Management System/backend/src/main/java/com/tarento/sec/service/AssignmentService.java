@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.tarento.sec.dto.AssignmentDto;
+import com.tarento.sec.exception.UserNotFound;
 import com.tarento.sec.model.Assignment;
 import com.tarento.sec.model.Grievance;
 import com.tarento.sec.model.User;
@@ -53,13 +54,21 @@ public class AssignmentService {
     }
     
     public List<Assignment> getAssignmentsBySupervisor(Long supervisorId) {
-        User supervisor = userRepo.findById(supervisorId).orElseThrow(() -> new RuntimeException("Supervisor not found"));
-        return assignmentRepo.findBySupervisor(supervisor);
+        try {
+            User supervisor = userRepo.findById(supervisorId).orElseThrow(() -> new UserNotFound("Supervisor not found"));
+            return assignmentRepo.findBySupervisor(supervisor);
+        } catch (UserNotFound e) {
+            return null;
+        }
     }
 
     public List<Assignment> getAssignmentsByAssignee(Long assigneeId) {
-        User assignee = userRepo.findById(assigneeId).orElseThrow(() -> new RuntimeException("Assignee not found"));
-        return assignmentRepo.findByAssignee(assignee);
+        try {
+            User assignee = userRepo.findById(assigneeId).orElseThrow(() -> new UserNotFound("Assignee not found"));
+            return assignmentRepo.findByAssignee(assignee);
+        } catch (UserNotFound e) {
+            return null;
+        }
     }
 
     public ResponseEntity<String> deleteAssignment(Long id) {

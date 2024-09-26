@@ -12,6 +12,7 @@ import com.tarento.sec.exception.RoleNotAllowedException;
 import com.tarento.sec.exception.RoleNotFound;
 import com.tarento.sec.exception.UserAlreadyExistsException;
 import com.tarento.sec.exception.UserNotFound;
+import com.tarento.sec.model.Grievance;
 import com.tarento.sec.model.Role;
 import com.tarento.sec.model.User;
 import com.tarento.sec.repo.RoleRepo;
@@ -23,11 +24,13 @@ public class UserService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepo roleRepo;
+    private final GrievanceService grievanceService;
     
-    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder, RoleRepo roleRepo) {
+    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder, RoleRepo roleRepo, GrievanceService grievanceService) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.roleRepo = roleRepo;
+        this.grievanceService = grievanceService;
     }
 
     public List<User> getUserByUsername(String username) {
@@ -53,7 +56,7 @@ public class UserService {
         return userRepo.findByRole(role);
     }
 
-    public User createUser(UserDto userDto) {
+    public ResponseEntity<String> createUser(UserDto userDto) {
         if (userRepo.findByEmail(userDto.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException("User already exists with email: " + userDto.getEmail());
         }
@@ -63,10 +66,11 @@ public class UserService {
         newUser.setEmail(userDto.getEmail());
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));   
         newUser.setRole(role);
-        return userRepo.save(newUser);
+        userRepo.save(newUser);
+        return new ResponseEntity<>("New user created succesfully", HttpStatus.OK);
     }
 
-    public User createEmployeeUser(UserDto userDto) {
+    public ResponseEntity<String> createEmployeeUser(UserDto userDto) {
         if (userRepo.findByEmail(userDto.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException("User already exists with email: " + userDto.getEmail());
         }
@@ -82,16 +86,17 @@ public class UserService {
         newUser.setEmail(userDto.getEmail());
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));   
         newUser.setRole(role);
-        return userRepo.save(newUser);
+        userRepo.save(newUser);
+        return new ResponseEntity<>("User with role " + role + " created", HttpStatus.OK);
     }
 
-    public User updateUser(User user) {
+    public ResponseEntity<String> updateUser(User user) {
         try {
             User existingUser = getUserById(user.getId());
             existingUser.setUsername(user.getUsername());
             existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
-            existingUser.setRole(user.getRole());
-            return userRepo.save(existingUser);
+            userRepo.save(existingUser);
+            return new ResponseEntity<>("User Details modified successfully", HttpStatus.OK);
         } catch (UserNotFound e) {
             throw new UserNotFound("User not found with id: " + user.getId());
         } catch (Exception e) {
@@ -102,6 +107,10 @@ public class UserService {
     public ResponseEntity<String> deleteUser(Long id) {
         try {
             User existingUser = getUserById(id);
+            List<Grievance> grievances =  grievanceService.getGrievancesByUser(id);
+            for (Grievance grievance : grievances) {
+                grievance.setUser(null);
+            }
             userRepo.delete(existingUser);
             return ResponseEntity.ok("User deleted successfully");
         } catch (UserNotFound e) {
@@ -109,5 +118,17 @@ public class UserService {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete user");
         }          
+    }
+
+    public ResponseEntity<String> changeUserRole(UserDto userDto) {
+        try {
+            User existingUser = getUserByEmail(userDto.getEmail());
+            Role role = roleRepo.findByName(userDto.getRole());
+            existingUser.setRole(role);
+            return new ResponseEntity<>("User role changed successfully", HttpStatus.OK);
+            
+        } catch (UserNotFound e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }

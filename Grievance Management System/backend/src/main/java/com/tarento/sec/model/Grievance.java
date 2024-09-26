@@ -35,7 +35,7 @@ public class Grievance {
     @Column(columnDefinition = "TEXT")
     private String description;
     @ManyToOne
-    @JoinColumn(name = "users_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = true)
     private User user;
     private String category;
     private String status;

@@ -72,8 +72,13 @@ public class GrievanceService {
     }
     
     public List<Grievance> getGrievancesByUser(long id) {
-        User user = userService.getUserById(id);
-        return grievanceRepo.findByUser(user);
+        try {
+            User user = userService.getUserById(id);
+            return grievanceRepo.findByUser(user);
+        } catch (UserNotFound e) {
+            return null;
+        }
+        
     }
 
     public ResponseEntity<String> deleteGrievance(Long id) {

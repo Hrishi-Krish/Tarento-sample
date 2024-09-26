@@ -34,16 +34,19 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @GetMapping("/username/{username}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public List<User> getUserByUsername(@PathVariable String username) {
         return userService.getUserByUsername(username);
     }
 
     @GetMapping("/email/{email}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public User getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
@@ -61,18 +64,24 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@RequestBody User user) {
+    public ResponseEntity<String> updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<String> createUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
 
-    @PostMapping("")
+    @PostMapping("/newEmployee")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public User createEmployeeUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<String> createEmployeeUser(@RequestBody UserDto userDto) {
         return userService.createEmployeeUser(userDto);
+    }
+
+    @PostMapping("/roleChange")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
+    public ResponseEntity<String> changeUserRole(@RequestBody UserDto userDto) {
+        return userService.changeUserRole(userDto);
     }
 }
