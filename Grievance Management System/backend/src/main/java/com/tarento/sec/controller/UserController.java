@@ -63,9 +63,14 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/password/{id}")
     public ResponseEntity<String> updateUser(@RequestBody User user) {
-        return userService.updateUser(user);
+        return userService.updateUserPassword(user);
+    }
+
+    @PutMapping("/username/{id}")
+    public ResponseEntity<String> updateUsername(@RequestBody User user) {
+        return userService.updateUsername(user);
     }
 
     @PostMapping("/create")

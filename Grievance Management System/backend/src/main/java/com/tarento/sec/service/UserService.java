@@ -58,7 +58,7 @@ public class UserService {
 
     public ResponseEntity<String> createUser(UserDto userDto) {
         if (userRepo.findByEmail(userDto.getEmail()).isPresent()) {
-            throw new UserAlreadyExistsException("User already exists with email: " + userDto.getEmail());
+            return new ResponseEntity<>("User already exists with email: " + userDto.getEmail(), HttpStatus.CONFLICT);
         }
         Role role = roleRepo.findByName("USER");
         User newUser = new User();
@@ -87,18 +87,30 @@ public class UserService {
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));   
         newUser.setRole(role);
         userRepo.save(newUser);
-        return new ResponseEntity<>("User with role " + role + " created", HttpStatus.OK);
+        return new ResponseEntity<>("User with role " + userDto.getRole() + " created", HttpStatus.OK);
     }
 
-    public ResponseEntity<String> updateUser(User user) {
+    public ResponseEntity<String> updateUserPassword(User user) {
+        try {
+            User existingUser = getUserById(user.getId());
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepo.save(existingUser);
+            return new ResponseEntity<>("Password updated successfully", HttpStatus.OK);
+        } catch (UserNotFound e) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update user " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<String> updateUsername(User user) {
         try {
             User existingUser = getUserById(user.getId());
             existingUser.setUsername(user.getUsername());
-            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepo.save(existingUser);
-            return new ResponseEntity<>("User Details modified successfully", HttpStatus.OK);
+            return new ResponseEntity<>("Username updated successfully", HttpStatus.OK);
         } catch (UserNotFound e) {
-            throw new UserNotFound("User not found with id: " + user.getId());
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user " + e.getMessage());
         }
@@ -125,8 +137,8 @@ public class UserService {
             User existingUser = getUserByEmail(userDto.getEmail());
             Role role = roleRepo.findByName(userDto.getRole());
             existingUser.setRole(role);
+            userRepo.save(existingUser);
             return new ResponseEntity<>("User role changed successfully", HttpStatus.OK);
-            
         } catch (UserNotFound e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
