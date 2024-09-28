@@ -36,12 +36,12 @@ export default function Profile() {
                 ...prevState,
                 password: ''
             }));
-        } else {
-            setIsEditing((prevState) => ({
-                ...prevState,
-                [field]: !prevState[field]
-            }));    
-        }
+        } 
+        setIsEditing((prevState) => ({
+            ...prevState,
+            [field]: !prevState[field]
+        }));    
+        
     };
 
     const handleChange = (e) => {
@@ -78,6 +78,8 @@ export default function Profile() {
             ...prevState,
             username: !prevState.username
         }));
+        const storedUser = JSON.parse(sessionStorage.getItem('user'));
+        sessionStorage.setItem('user', JSON.stringify({ ...storedUser, username: userDetails.username }));
     }
 
     const handlePasswordSubmit = async () => {
@@ -89,14 +91,14 @@ export default function Profile() {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authroization': `Bearer ${jwt}`
+                'Authorization': `Bearer ${jwt}`
             },
-            body: JSON.stringify({ password: userDetails.username, id: id })
+            body: JSON.stringify({ password: userDetails.password, id: id })
         })
         if (response.ok) {
-            alert('Username updated successfully');
+            alert('password updated successfully');
         } else {
-            alert('Error updating username');
+            alert('Error updating password');
         }
         setIsEditing((prevState) => ({
             ...prevState,

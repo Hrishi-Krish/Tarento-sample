@@ -19,7 +19,6 @@ export default function Example() {
 
     const [logoLink, setLogoLink] = useState('/')
     const {isAuthenticated, logout, user} = useAuth();  
-    const {role} = user || {}
     const [navigation, setNavigation] = useState(initialNavigation);
     const navigate = useNavigate()
     const location = useLocation()
@@ -173,7 +172,13 @@ export default function Example() {
                     {isAuthenticated && (
                         <Disclosure.Panel className="sm:hidden">
                             <div className="space-y-1 px-2 pb-3 pt-2">
-                                {navigation.map((item) => (
+                                {navigation.map((item) => {
+
+                                    if ((item.name === "Search" || item.name === "Manage") && !(user.role === "ADMIN" || user.role === "SUPERVISOR")) {
+                                        return null
+                                    }
+                                    
+                                    return (
                                     <Disclosure.Button
                                         key={item.name}
                                         as="a"
@@ -186,7 +191,7 @@ export default function Example() {
                                     >
                                         {item.name}
                                     </Disclosure.Button>
-                                ))}
+                                )})}
                             </div>
                         </Disclosure.Panel>
                     )}
