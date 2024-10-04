@@ -1,0 +1,132 @@
+import { useEffect, useState } from "react"
+import useAuth from "../hooks/useAuth"
+
+export default function Home() {
+
+    const {user, email, jwt} = useAuth()
+    const { username, id, role } = user || {}
+    const [grievances, setGrievances] = useState([])
+
+    const fetchUserGrievances = async () => {
+        try {
+            const response = await fetch(`http:localhost:8080/api/grievances/user/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwt}`
+                }
+            })
+            if (response.ok) {
+                const data = await response.json()
+                setGrievances(data)
+                console.log(data)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchUserGrievances()
+    })
+
+    return (
+        <div className="min-h-[90vh] mx-3 my-2 rounded-lg bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8 ">
+            <div className="relative min-h-[60vh] overflow-x-auto sm:rounded-lg border-2 border-yellow-500">
+                <h1 className="text-white text-center py-3 text-2xl mb-3">
+                    Your Grievances
+                </h1>
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
+                        <tr>
+                            <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                Product name
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Color
+                            </th>
+                            <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                Category
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Price
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className="border-b border-gray-200 dark:border-gray-700">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                Apple MacBook Pro 17
+                            </th>
+                            <td className="px-6 py-4">
+                                Silver
+                            </td>
+                            <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                                Laptop
+                            </td>
+                            <td className="px-6 py-4">
+                                $2999
+                            </td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-gray-700">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                Microsoft Surface Pro
+                            </th>
+                            <td className="px-6 py-4">
+                                White
+                            </td>
+                            <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                                Laptop PC
+                            </td>
+                            <td className="px-6 py-4">
+                                $1999
+                            </td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-gray-700">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                Magic Mouse 2
+                            </th>
+                            <td className="px-6 py-4">
+                                Black
+                            </td>
+                            <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                                Accessories
+                            </td>
+                            <td className="px-6 py-4">
+                                $99
+                            </td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-gray-700">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                Google Pixel Phone
+                            </th>
+                            <td className="px-6 py-4">
+                                Gray
+                            </td>
+                            <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                                Phone
+                            </td>
+                            <td className="px-6 py-4">
+                                $799
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                Apple Watch 5
+                            </th>
+                            <td className="px-6 py-4">
+                                Red
+                            </td>
+                            <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                                Wearables
+                            </td>
+                            <td className="px-6 py-4">
+                                $999
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
+}

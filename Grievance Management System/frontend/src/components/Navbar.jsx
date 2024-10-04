@@ -1,4 +1,4 @@
-import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Disclosure} from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
@@ -200,31 +200,3 @@ export default function Example() {
         </Disclosure>
     )
 }
-
-{/* <Menu as="div" className="relative ml-3">
-                                        <div>
-                                            <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                                <span className="sr-only">Open user menu</span>
-                                                <UserIcon className="h-6 w-8 rounded-full text-gray-400" aria-hidden="true" />
-                                            </MenuButton>
-                                        </div>
-                                        <MenuItems
-                                            className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                        >
-                                            <MenuItem>
-                                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                                    Your Profile
-                                                </a>
-                                            </MenuItem>
-                                            <MenuItem>
-                                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                                    Settings
-                                                </a>
-                                            </MenuItem>
-                                            <MenuItem>
-                                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                                    Sign out
-                                                </a>
-                                            </MenuItem>
-                                        </MenuItems>
-                                    </Menu> */}

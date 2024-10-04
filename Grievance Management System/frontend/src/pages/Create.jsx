@@ -39,7 +39,7 @@ export default function Create() {
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-1">
                 <div className="bg-gray-900 py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <form className="space-y-6 flex flex-col" onSubmit={handleSubmit}>
-                        <h1 className="text-2xl font-bold mb-4 text-white text-center">Submit new Grievance</h1>
+                        <h1 className="text-3xl font-bold mb-4 text-white text-center">Submit new Grievance</h1>
                         <div className="mb-4">
                             <label htmlFor="title" className="block text-sm font-medium text-gray-200">Title</label>
                             <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)}
