@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tarento.sec.dto.GrievanceDto;
-import com.tarento.sec.model.Grievance;
+import com.tarento.sec.response.grievance.EmployeeGrievanceResponse;
+import com.tarento.sec.response.grievance.UserGreivanceResponse;
 import com.tarento.sec.service.GrievanceService;
 
 @RestController
@@ -29,30 +30,30 @@ public class GrievanceController {
 
     @GetMapping("")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public List<Grievance> getAllGrievances() {
+    public List<EmployeeGrievanceResponse> getAllGrievances() {
         return grievanceService.getAllGrievances();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR', 'ASSIGNEE')")
-    public Grievance getGrievanceById(@PathVariable Long id) {
+    public EmployeeGrievanceResponse getGrievanceById(@PathVariable Long id) {
         return grievanceService.getGrievanceById(id);
     }
 
     @GetMapping("/user/{id}")
-    public List<Grievance> getGrievancesByUser(@PathVariable Long id) {
+    public List<UserGreivanceResponse> getGrievancesByUser(@PathVariable Long id) {
         return grievanceService.getGrievancesByUser(id);
     }
 
     @GetMapping("/status/{status}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR', 'ASSIGNEE')")
-    public List<Grievance> getGrievancesByStatus(@PathVariable String status) {
+    public List<EmployeeGrievanceResponse> getGrievancesByStatus(@PathVariable String status) {
         return grievanceService.getGrievancesByStatus(status);
     }
 
-    @GetMapping("/category/{category}")
+    @GetMapping("/category")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public List<Grievance> getGrievancesByCategory(@PathVariable String category) {
+    public List<EmployeeGrievanceResponse> getGrievancesByCategory(@RequestBody String category) {
         return grievanceService.getGrievancesByCategory(category);
     }
 
@@ -63,20 +64,19 @@ public class GrievanceController {
     }
 
     @PostMapping("/")
-    public Grievance createGrievance(@RequestBody GrievanceDto grievanceDto) {
+    public ResponseEntity<String> createGrievance(@RequestBody GrievanceDto grievanceDto) {
         return grievanceService.createGrievance(grievanceDto);
     }
     
-    @PutMapping("/status/{id}")
+    @PutMapping("/resolved/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR', 'ASSIGNEE')")
-    public Grievance updateGrievanceStatus(@PathVariable Long id, @RequestBody String status) {
-        return grievanceService.updateGrievanceStatus(id, status);
+    public ResponseEntity<String> updateGrievanceStatus(@PathVariable Long id) {
+        return grievanceService.updateGrievanceStatus(id);
     }
 
     @PutMapping("/category/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public Grievance updateGrievanceCategory(@PathVariable Long id, @RequestBody String category) {
+    public ResponseEntity<String> updateGrievanceCategory(@PathVariable Long id, @RequestBody String category) {
         return grievanceService.updateGrievanceCategory(id, category);
     }
-    
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tarento.sec.dto.AssignmentDto;
-import com.tarento.sec.model.Assignment;
+import com.tarento.sec.response.assignment.AssignmentResponse;
 import com.tarento.sec.service.AssignmentService;
 
 @RestController
@@ -28,37 +28,43 @@ public class AssignmentController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public List<Assignment> getAllAssignments() {
-        return assignmentService.getAllAssignments();
+    public List<AssignmentResponse> getAllAssignments() {
+        return assignmentService.getAllAssignmentDetails();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public Assignment getAssignmentById(@PathVariable Long id) {
-        return assignmentService.getAssignmentById(id);
+    public AssignmentResponse getAssignmentById(@PathVariable Long id) {
+        return assignmentService.getAssignmentDetailsById(id);
+    }
+
+    @GetMapping("/grievance/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR', 'ASSIGNEE')")
+    public AssignmentResponse getAssignmentByGrievanceId(@PathVariable Long id) {
+        return assignmentService.getAssignmentDetailsByGrievanceId(id);
     }
 
     @GetMapping("/supervisor/{supervisorId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public List<Assignment> getAssignmentsBySupervisor(@PathVariable Long supervisorId) {
-        return assignmentService.getAssignmentsBySupervisor(supervisorId);
+    public List<AssignmentResponse> getAssignmentsBySupervisor(@PathVariable Long supervisorId) {
+        return assignmentService.getAssignmentDetailsBySupervisor(supervisorId);
     }
 
     @GetMapping("/assignee/{assigneeId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR', 'ASSIGNEE')")
-    public List<Assignment> getAssignmentsByAssignee(@PathVariable Long assigneeId) { 
-        return assignmentService.getAssignmentsByAssignee(assigneeId);
+    public List<AssignmentResponse> getAssignmentsByAssignee(@PathVariable Long assigneeId) { 
+        return assignmentService.getAssignmentDetailsByAssignee(assigneeId);
     }
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public Assignment createAssignment(@RequestBody AssignmentDto assignmentDto) {
+    public ResponseEntity<String> createAssignment(@RequestBody AssignmentDto assignmentDto) {
         return assignmentService.createAssignment(assignmentDto);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public Assignment updateAssignment(@PathVariable Long id, @RequestBody AssignmentDto assignmentDto) {
+    public ResponseEntity<String> updateAssignment(@PathVariable Long id, @RequestBody AssignmentDto assignmentDto) {
         return assignmentService.updateAssignment(id, assignmentDto);
     }
 
@@ -67,5 +73,4 @@ public class AssignmentController {
     public ResponseEntity<String> deleteAssignment(@PathVariable Long id) {
         return assignmentService.deleteAssignment(id);
     }
-    
 }

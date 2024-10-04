@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tarento.sec.dto.UserDto;
 import com.tarento.sec.model.User;
+import com.tarento.sec.response.user.UserResponse;
 import com.tarento.sec.service.UserService;
 
 @RestController
@@ -29,32 +30,32 @@ public class UserController {
 
     @GetMapping("")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<User> getUsers() {
+    public List<UserResponse> getUsers() {
         return userService.getUsers();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public UserResponse getUserById(@PathVariable Long id) {
+        return userService.getUserDetailsById(id);
     }
 
     @GetMapping("/username/{username}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public List<User> getUserByUsername(@PathVariable String username) {
-        return userService.getUserByUsername(username);
+    public List<UserResponse> getUserByUsername(@PathVariable String username) {
+        return userService.getUserDetailsByUsername(username);
     }
 
     @GetMapping("/email/{email}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public User getUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
+    public UserResponse getUserByEmail(@PathVariable String email) {
+        return userService.getUserDetailsByEmail(email);
     }
 
     @GetMapping("/role/{role}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
-    public List<User> getUsersByRole(@PathVariable String role) {
-        return userService.getUsersByRole(role);
+    public List<UserResponse> getUsersByRole(@PathVariable String role) {
+        return userService.getUserDetailsByRole(role);
     }
 
     @DeleteMapping("/{id}")
@@ -64,7 +65,7 @@ public class UserController {
     }
 
     @PutMapping("/password/{id}")
-    public ResponseEntity<String> updateUser(@RequestBody User user) {
+    public ResponseEntity<String> updateUserPassword(@RequestBody User user) {
         return userService.updateUserPassword(user);
     }
 

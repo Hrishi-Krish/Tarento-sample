@@ -1,6 +1,7 @@
 package com.tarento.sec.service;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import com.tarento.sec.model.User;
 import com.tarento.sec.repo.GrievanceRepo;
 import com.tarento.sec.repo.RoleRepo;
 import com.tarento.sec.repo.UserRepo;
+import com.tarento.sec.response.user.UserResponse;
 
 @Service
 public class UserService {
@@ -37,9 +39,41 @@ public class UserService {
         return userRepo.findByUsername(username);
     }
 
+    public List<UserResponse> getUserDetailsByUsername(String username) {
+        try {
+            List<User> users = userRepo.findByUsername(username);
+            List<UserResponse> userResponses = new ArrayList<>();
+            for (User user : users) {
+                UserResponse userResponse = new UserResponse();
+                userResponse.setEmail(user.getEmail());
+                userResponse.setId(user.getId());
+                userResponse.setUsername(user.getUsername());
+                userResponse.setRoleName(user.getRole().getName());
+                userResponses.add(userResponse);
+            }
+            return userResponses;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public User getUserByEmail(String email) {
         return userRepo.findByEmail(email)
         .orElseThrow(() -> new UserNotFound("User not found with email: " + email));
+    }
+
+    public UserResponse getUserDetailsByEmail(String email) {
+        try {
+            User user = userRepo.findByEmail(email).orElseThrow(() -> new UserNotFound("User not found with email: " + email));
+            UserResponse userResponse = new UserResponse();
+            userResponse.setEmail(user.getEmail());
+            userResponse.setId(user.getId());
+            userResponse.setUsername(user.getUsername());
+            userResponse.setRoleName(user.getRole().getName());
+            return userResponse;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public User getUserById(Long id) {
@@ -47,13 +81,61 @@ public class UserService {
         .orElseThrow(() -> new UserNotFound("User not found with id: " + id));
     }
 
-    public List<User> getUsers() {
-        return userRepo.findAll();
+    public UserResponse getUserDetailsById(Long id) {
+        try {
+            User user = userRepo.findById(id).orElseThrow(() -> new UserNotFound("User not found with id: " + id));
+            UserResponse userResponse = new UserResponse();
+            userResponse.setEmail(user.getEmail());
+            userResponse.setId(user.getId());
+            userResponse.setUsername(user.getUsername());
+            userResponse.setRoleName(user.getRole().getName());
+            return userResponse;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<UserResponse> getUsers() {
+        try {
+            List<User> users = userRepo.findAll();
+            List<UserResponse> userResponses = new ArrayList<>();
+            for (User user : users) {
+                UserResponse userResponse = new UserResponse();
+                userResponse.setEmail(user.getEmail());
+                userResponse.setId(user.getId());
+                userResponse.setUsername(user.getUsername());
+                userResponse.setRoleName(user.getRole().getName());
+                userResponses.add(userResponse);
+            }
+            return userResponses;
+        } catch (Exception e) {
+            return null;
+        }
+        
     }
 
     public List<User> getUsersByRole(String roleName) {
         Role role = roleRepo.findByName(roleName);
         return userRepo.findByRole(role);
+    }
+
+    public List<UserResponse> getUserDetailsByRole(String roleName) {
+        try {
+            Role role = roleRepo.findByName(roleName);
+            List<User> users = userRepo.findByRole(role);
+            List<UserResponse> userResponses = new ArrayList<>();
+            for (User user : users) {
+                UserResponse userResponse = new UserResponse();
+                userResponse.setEmail(user.getEmail());
+                userResponse.setId(user.getId());
+                userResponse.setUsername(user.getUsername());
+                userResponse.setRoleName(user.getRole().getName());
+                userResponses.add(userResponse);
+            }
+            return userResponses;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public ResponseEntity<String> createUser(UserDto userDto) {

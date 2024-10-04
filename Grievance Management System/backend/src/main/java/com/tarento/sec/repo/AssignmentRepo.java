@@ -12,4 +12,5 @@ import com.tarento.sec.model.User;
 public interface AssignmentRepo extends JpaRepository<Assignment, Long> {
     List<Assignment> findBySupervisor(User user);
     List<Assignment> findByAssignee(User user);
+    Assignment findByGrievanceId(Long grievanceId);
 }
