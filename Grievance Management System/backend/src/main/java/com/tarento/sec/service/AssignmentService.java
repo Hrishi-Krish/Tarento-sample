@@ -95,6 +95,10 @@ public class AssignmentService {
         }
     }
 
+    public Assignment getAssignmentByGrievanceId(long id) {
+        return assignmentRepo.findByGrievanceId(id);
+    }
+
     public ResponseEntity<String> createAssignment(AssignmentDto assignmentDto) {
         try {
             if (assignmentRepo.findByGrievanceId(assignmentDto.getGrievanceId()) != null) {

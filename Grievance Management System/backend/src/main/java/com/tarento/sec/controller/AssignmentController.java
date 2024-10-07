@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tarento.sec.dto.AssignmentDto;
+import com.tarento.sec.model.Assignment;
 import com.tarento.sec.response.assignment.AssignmentResponse;
 import com.tarento.sec.service.AssignmentService;
 
@@ -32,16 +33,34 @@ public class AssignmentController {
         return assignmentService.getAllAssignmentDetails();
     }
 
+    @GetMapping("/raw/")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
+    public List<Assignment> getAllAssignmentsRaw() {
+        return assignmentService.getAllAssignments();
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
     public AssignmentResponse getAssignmentById(@PathVariable Long id) {
         return assignmentService.getAssignmentDetailsById(id);
     }
 
+    @GetMapping("/raw/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
+    public Assignment getAllAssignmentsByIdRaw(@PathVariable long id) {
+        return assignmentService.getAssignmentById(id);
+    }
+
     @GetMapping("/grievance/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR', 'ASSIGNEE')")
     public AssignmentResponse getAssignmentByGrievanceId(@PathVariable Long id) {
         return assignmentService.getAssignmentDetailsByGrievanceId(id);
+    }
+
+    @GetMapping("/raw/grievance/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")
+    public Assignment getAllAssignmentsByGrievanceIdRaw(@PathVariable long id) {
+        return assignmentService.getAssignmentByGrievanceId(id);
     }
 
     @GetMapping("/supervisor/{supervisorId}")
