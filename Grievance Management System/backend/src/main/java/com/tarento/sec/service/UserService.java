@@ -138,6 +138,19 @@ public class UserService {
         }
     }
 
+    public void createAdmin(UserDto userDto) {
+        if (userRepo.findByEmail(userDto.getEmail()).isPresent()) {
+            return;
+        }
+        Role role = roleRepo.findByName("ADMIN");
+        User newUser = new User();
+        newUser.setUsername(userDto.getUsername());
+        newUser.setEmail(userDto.getEmail());
+        newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));   
+        newUser.setRole(role);
+        userRepo.save(newUser);
+    }
+
     public ResponseEntity<String> createUser(UserDto userDto) {
         if (userRepo.findByEmail(userDto.getEmail()).isPresent()) {
             return new ResponseEntity<>("User already exists with email: " + userDto.getEmail(), HttpStatus.CONFLICT);
